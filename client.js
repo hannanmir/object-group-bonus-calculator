@@ -40,4 +40,61 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
-console.log( employees );
+// --- FUNCTION ---
+//Write a declared function that takes in one **Employee** object (as an argument to the function), and returns a new **object** with the following properties:
+
+// * The `name` property should contain the employee's name.
+// * The `bonusPercentage` property should contain the bonus percentage the employee is to receive. See section below for calculation instructions.
+// * The `totalCompensation` property should be the adjusted annual compensation (base annual + bonus)
+// * The `totalBonus` should be the employee's total bonus rounded to the nearest dollar.
+
+let bonusPercentage = 0;
+
+function calculateBonus(employee) {
+
+  let completeReviewObject = { }
+ 
+  if (employee.reviewRating === 3) {
+    bonusPercentage = .04; // setting value of bonusPercentage
+
+  } else if (employee.reviewRating === 4) {
+    bonusPercentage = .06;
+
+  } else if (employee.reviewRating === 5) {
+    bonusPercentage = .10;
+
+  } else if (employee.reviewRating <= 2) {
+    bonusPercentage = 0;
+
+  } 
+  
+  if(employee.employeeNumber.length === 4) {
+    bonusPercentage += .05;
+  }
+
+  if(employee.annualSalary > 65000) {
+    bonusPercentage -= .01;
+  } 
+  if(bonusPercentage > .13) {
+    bonusPercentage = .13;
+  }
+  if(bonusPercentage < 0) {
+    bonusPercentage = 0;
+  }
+  return bonusPercentage;
+
+}
+
+
+
+let totalCompensation = 0;
+
+function compensationCalc (employeeSalary) {
+    let totalBonus = 0;
+    totalBonus = (employeeSalary.annualSalary * calculateBonus(employeeSalary));
+    totalCompensation = Number(totalBonus) + Number(employeeSalary.annualSalary);
+    return totalCompensation;
+}
+
+console.log(compensationCalc(employees[0]));
+
